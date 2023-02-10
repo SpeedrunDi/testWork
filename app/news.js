@@ -13,7 +13,7 @@ router.get('/',  async (req, res) => {
   }
 });
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const news = await New.findById(req.params.id);
 
