@@ -1,17 +1,21 @@
 require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const exitHook = require('async-exit-hook');
 
 const {mongo} = require('./config');
 const users = require('./app/users')
+const news = require('./app/news');
 
 const PORT = 8000;
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 app.use('/users', users);
+app.use('/news', news);
 
 const run = async () => {
   mongoose.set('strictQuery', false);
@@ -28,4 +32,4 @@ const run = async () => {
   });
 };
 
-run().catch(e => console.error(e))
+run().catch(e => console.error(e));
