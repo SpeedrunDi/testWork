@@ -4,15 +4,17 @@ const mongoose = require('mongoose');
 const exitHook = require('async-exit-hook');
 
 const {mongo} = require('./config');
+const users = require('./app/users')
 
 const PORT = 8000;
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
+app.use('/users', users);
 
 const run = async () => {
-  await mongoose.set('strictQuery', false);
+  mongoose.set('strictQuery', false);
   await mongoose.connect(mongo.db, mongo.options);
 
   console.log('Mongo connected');
